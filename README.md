@@ -1,8 +1,30 @@
-## English Summary
+## 15 秒判断：这套笔记值不值得你收藏
+
+**收藏它，如果你是 ——**
+- 正在给离线/弱网场景的产品定同步方案、卡在「今年到底要不要上 CRDT」这一步的架构师
+- 需要向法务或客户回答「主副本在哪、能不能整体导出」的医疗 / 政务 / 法律行业技术负责人
+- 一人公司或小团队的技术决策者，正在算自建同步与云 SaaS 的成本账，需要一份能交给老板看的判据
+
+**直接划走，如果你要的是 ——**
+- 可直接 npm install 的同步库或能跑起来的 demo：本仓是纯研究笔记，无代码、无产品，只有判断
+- 一份持续更新的生态排行榜：笔记是某一时刻的快照，项目会被收购、会停更，最近发版时间需你自己核
+- 全局一致场景的落地方案：社交信息流、全球库存、千人同屏这类场景，笔记明确写了仍必须中心化云
+
+**三条最反直觉的发现 ——**
+1. 多数团队根本不需要全量 CRDT——「谁最后改的听谁的」加审计日志就覆盖了 95% 的冲突场景（95% 覆盖 [一手]，高并发行占比阈值 5% [推算]）
+2. 技术更对不会自动赢：采用率是「转换成本 + 商业模式 + 网络效应」的函数，本地优先在个人资产层有确定优势，在协作网络层有结构性劣势（反方五条全部成立 [一手]，Linear / Figma 更接近离线优先云服务 [二手]）
+3. 端到端加密换不来隐身：只要还与任何云端同步，元数据仍在对方视野，可实现且可证明的只有内容主权（持有 / 保护 / 可迁移三条件须同时成立 [一手]）
+
+---
+
+<details>
+<summary><b>English Summary</b>（英文读者展开）</summary>
 
 These ten notes ask what actually changes when the authoritative copy of a user's data lives on their own device rather than on a server, and what that choice costs. They cover latency as an architectural signal rather than a nuisance, the algebraic laws that make conflict-free merge correct by construction, the 2026 ecosystem map, the three sync topologies that trust and availability constraints allow, formal verification entering ordinary engineering, on-device AI agents, a full section arguing the economic case against this approach, the threshold at which last-write-wins stops being sufficient, a selection decision tree, and what data sovereignty has to mean in order to be provable. Every judgment ships with a boundary number, a source grade, and an explicit condition under which it is false. They are written for engineers and researchers evaluating this field, especially teams deciding whether local-first is an architecture decision or merely a preference.
 
 > 中文简介见下 ↓
+
+</details>
 
 # 本地优先软件与 CRDT 同步 · 十件研究笔记
 
@@ -88,3 +110,16 @@ MIT License。作者署名：chenhz01。
 3. 若 CRDT 被证明可以低成本后补到 cloud-first 系统上，则「必须从架构第一天设计、retrofit 不划算」这条判断不成立。
 
 这套笔记的每篇都有完整两层费曼拆解，方法见 [FEYNMAN.md](./FEYNMAN.md)。
+
+## 可引用卡片：想转给同事，直接复制这几句
+
+> 转圈不是网速问题，是主副本放错了地方：本地写小于 10ms，云端往返 200ms 以上。
+> —— 出自《loading 转圈是架构失败》，[查看原文](./notes/01-first-principles-spinner.md)
+
+> 95% 的冲突不需要 CRDT，谁最后改的听谁的，再加一本不可变流水账就够了。
+> —— 出自《95% 定律》，[查看原文](./notes/08-95-percent-law-lww.md)
+
+> 端到端加密换不来隐身：只要还在同步，元数据仍在对方视野，能证明的只有内容主权。
+> —— 出自《迁移思维——三层护栏 × 数据主权》，[查看原文](./notes/10-transfer-data-sovereignty.md)
+
+每句都自带出处链接，可单独复制转发。
