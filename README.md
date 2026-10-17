@@ -1,3 +1,9 @@
+## English Summary
+
+These ten notes ask what actually changes when the authoritative copy of a user's data lives on their own device rather than on a server, and what that choice costs. They cover latency as an architectural signal rather than a nuisance, the algebraic laws that make conflict-free merge correct by construction, the 2026 ecosystem map, the three sync topologies that trust and availability constraints allow, formal verification entering ordinary engineering, on-device AI agents, a full section arguing the economic case against this approach, the threshold at which last-write-wins stops being sufficient, a selection decision tree, and what data sovereignty has to mean in order to be provable. Every judgment ships with a boundary number, a source grade, and an explicit condition under which it is false. They are written for engineers and researchers evaluating this field, especially teams deciding whether local-first is an architecture decision or merely a preference.
+
+> 中文简介见下 ↓
+
 # 本地优先软件与 CRDT 同步 · 十件研究笔记
 
 一句话定位：这是围绕「数据主副本放在用户自己设备上」这条技术路线的一组长线研究笔记，记录十个可独立阅读、也互相引用的判断，每条都写明边界条件与证伪条件。
@@ -52,3 +58,33 @@
 ## 许可
 
 MIT License。作者署名：chenhz01。
+
+## 同系列笔记（五个领域）
+
+| 领域 | 仓库 | 一句话 |
+|---|---|---|
+| 神经形态计算与事件驱动传感 | [neuromorphic-event-sensing](https://github.com/chenhz01/neuromorphic-event-sensing) | 永远在线的智能为什么必须抛弃「帧」与全局时钟，以及省 100 倍的前提条件 |
+| AI 老药新用与计算重定位 | [ai-drug-repurposing](https://github.com/chenhz01/ai-drug-repurposing) | 用计算手段给已上市分子找新适应症，以及 10-30% 的前瞻重复率边界 |
+| 本地优先软件与 CRDT 同步 | [local-first-crdt](https://github.com/chenhz01/local-first-crdt) | 把数据主副本放回用户设备，冲突由数学保证收敛 |
+| 后量子密码迁移 | [post-quantum-migration](https://github.com/chenhz01/post-quantum-migration) | 从 Shor 的威胁模型走到一人公司能执行的换算法顺序 |
+| 软体与折纸机器人 | [soft-origami-robotics](https://github.com/chenhz01/soft-origami-robotics) | 柔性结构能否把安全、顺应与几何编程做成工程能力 |
+
+五套笔记各自独立，互不依赖，可任选入口进入。
+
+## 费曼速览：60 秒判断这个领域值不值得你花时间
+
+**一句话**：像把作业本放进自己的书包而不是锁在讲台抽屉里——想改就改，不用举手等老师递回来；哪里不像：书包里的本子借给同学同时改，两人改到同一行时得有规则决定听谁的，而这套规则（CRDT）必须从架构第一天就设计进去，后补的代价足以让团队放弃。
+
+**三个数**：
+
+1. 本地写 <10ms，云端 API 往返 200ms+ [一手]
+2. 95% 的冲突场景可由 last-write-wins + 审计日志覆盖 [一手]
+3. 高并发行占比阈值 5%，低于此值多数团队今年不需要全量 CRDT [推算]
+
+**不成立的三个条件**：
+
+1. 若你的产品需要全局一致与中心编排（社交信息流、全球库存、千人同屏），本地优先止步于此，中心化云仍是唯一答案。
+2. 若产品从单人工具长成协作工具，「95% 可由 LWW 覆盖」会明显缩水，本套笔记的层级选择结论失效。
+3. 若 CRDT 被证明可以低成本后补到 cloud-first 系统上，则「必须从架构第一天设计、retrofit 不划算」这条判断不成立。
+
+这套笔记的每篇都有完整两层费曼拆解，方法见 [FEYNMAN.md](./FEYNMAN.md)。
